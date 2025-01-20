@@ -19,6 +19,11 @@ public class baseInitData {
         return args -> {
 
             // 샘플 데이터 3개 생성.
+            // 데이터 3개가 이미 있으면 패스
+            if (postService.count()  > 0) {
+                return ;
+            }
+
             Post p1 = postService.write("title1", "body1");
             System.out.println(p1.getId() + "번 포스트가 생성되었습니다.");
 
