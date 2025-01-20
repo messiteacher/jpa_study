@@ -1,11 +1,15 @@
 package com.example.jpa.domain.post.post.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
-public class post {
+@Setter
+@Getter
+public class Post {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
