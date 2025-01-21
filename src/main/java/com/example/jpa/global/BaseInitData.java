@@ -5,10 +5,12 @@ import com.example.jpa.domain.post.comment.service.CommentService;
 import com.example.jpa.domain.post.post.entity.Post;
 import com.example.jpa.domain.post.post.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.transaction.annotation.Transactional;
 
 @Configuration
 @RequiredArgsConstructor
@@ -39,22 +41,23 @@ public class BaseInitData {
     @Order(2)
     public ApplicationRunner applicationRunner2() {
 
-        return args -> {
+        return new ApplicationRunner() {
+            @Override
+            @Transactional
+            public void run(ApplicationArguments args) throws Exception {
 
-            Post post = postService.findById(1L).get();
+                Post post = postService.findById(1L).get();
 
-            if (commentService.count() > 0) {
-                return;
+                if (commentService.count() > 0) {
+                    return;
+                }
+
+                Comment c5 = Comment.builder()
+                        .body("comment5")
+                        .build();
+
+                post.addComment(c5);
             }
-
-            Comment c1 = commentService.write(post.getId(), "comment1");
-            Comment c2 = commentService.write(post.getId(), "comment2");
-            Comment c3 = commentService.write(post.getId(), "comment3");
-
-            System.out.println(c1.getId() + "번 댓글의 부모 게시글 번호는 " + c1.getPostId() + "입니다.");
-
-            Post parent = postService.findById(c1.getPostId()).get();
-            System.out.println(c1.getId() + "번 댓글의 부모 게시글 제목은 " + parent.getTitle() + "입니다.");
         };
     }
 }
