@@ -49,11 +49,24 @@ public class BaseInitData {
                 .body("comment1")
                 .build();
 
-        c1 = commentService.save(c1);
+//        c1 = commentService.save(c1);
+        p1.addComment(c1);
+
+        Comment c2 = Comment.builder()
+                .body("comment2")
+                .build();
+
+        p1.addComment(c2);
+
+        Comment c3 = Comment.builder()
+                .body("comment3")
+                .build();
+
+        p1.addComment(c3);
+
+        p1.removeComment(c1);
 
 //        p1.getComments().add(c1); // 관계의 주인이 DB 반영을 함
 //        commentService.write(p1, "comment1");
-
-        p1.addComment(c1);
     }
 }
