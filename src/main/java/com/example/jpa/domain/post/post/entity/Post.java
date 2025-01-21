@@ -40,4 +40,9 @@ public class Post {
     @OneToMany(mappedBy = "post") // mappedBy를 사용하지 않은 쪽이 관계의 주인
     @Builder.Default
     private List<Comment> comments = new ArrayList<>();
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        comment.setPost(this);
+    }
 }
