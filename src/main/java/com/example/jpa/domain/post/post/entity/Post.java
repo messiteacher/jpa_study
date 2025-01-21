@@ -1,5 +1,6 @@
 package com.example.jpa.domain.post.post.entity;
 
+import com.example.jpa.domain.post.comment.entity.Comment;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -7,6 +8,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -33,4 +35,7 @@ public class Post {
     private String title;
     @Column(columnDefinition = "TEXT")
     private String body;
+
+    @OneToMany(mappedBy = "post") // mappedBy를 사용하지 않은 쪽이 관계의 주인
+    private List<Comment> comment;
 }
