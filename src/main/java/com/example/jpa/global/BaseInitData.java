@@ -32,8 +32,12 @@ public class BaseInitData {
             }
 
             Post p1 = postService.write("title1", "body1");
-            Post p2 = postService.write("title2", "body2");
-            Post p3 = postService.write("title3", "body3");
+            postService.write("title2", "body2");
+            postService.write("title3", "body3");
+
+            commentService.write(p1, "comment1");
+            commentService.write(p1, "comment2");
+            commentService.write(p1, "comment3");
         };
     }
 
@@ -46,22 +50,12 @@ public class BaseInitData {
             @Transactional
             public void run(ApplicationArguments args) throws Exception {
 
-                Post post = postService.findById(1L).get();
+                Comment c1 = commentService.findById(1L).get();
 
-                if (commentService.count() > 0) {
-                    return;
-                }
+                Post post = c1.getPost();
 
-                Comment c5 = Comment.builder()
-                        .body("comment5")
-                        .build();
-
-                post.addComment(c5);
-
-//                long parentId = c5.getPostId();
-//                Post parent = postService.findById(parentId).get();
-//
-//                System.out.println(parent.getTitle());
+                System.out.println(post.getId());
+                System.out.println(post.getTitle());
             }
         };
     }
