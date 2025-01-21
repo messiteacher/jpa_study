@@ -57,6 +57,11 @@ public class BaseInitData {
                         .build();
 
                 post.addComment(c5);
+
+//                long parentId = c5.getPostId();
+//                Post parent = postService.findById(parentId).get();
+//
+//                System.out.println(parent.getTitle());
             }
         };
     }

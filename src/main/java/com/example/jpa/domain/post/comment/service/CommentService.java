@@ -14,7 +14,7 @@ public class CommentService {
     public Comment write(long postId, String body) {
 
         Comment comment = Comment.builder()
-                .postId(postId)
+//                .postId(postId)
                 .body(body)
                 .build();
 

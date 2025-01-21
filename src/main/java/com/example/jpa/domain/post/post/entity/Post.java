@@ -37,7 +37,7 @@ public class Post {
     @Column(columnDefinition = "TEXT")
     private String body;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     @Builder.Default
     private List<Comment> comments = new ArrayList<>();
 
