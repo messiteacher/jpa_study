@@ -6,7 +6,6 @@ import com.example.jpa.domain.post.post.entity.Post;
 import com.example.jpa.domain.post.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,43 +30,27 @@ public class BaseInitData {
     public ApplicationRunner applicationRunner() {
 
         return args -> {
-
-            // 샘플 데이터 3개 생성.
-            // 데이터 3개가 이미 있으면 패스
-            if (postService.count()  > 0) {
-                return ;
-            }
-
-            Post p1 = postService.write("title1", "body1");
-            postService.write("title2", "body2");
-            postService.write("title3", "body3");
-
-            commentService.write(p1, "comment1");
-            commentService.write(p1, "comment2");
-            commentService.write(p1, "comment3");
-        };
-    }
-
-    @Bean
-    @Order(2)
-    public ApplicationRunner applicationRunner2() {
-
-        return new ApplicationRunner() {
-            @Override
-            public void run(ApplicationArguments args) throws Exception {
-                self.work1();
-            }
+            self.work1();
         };
     }
 
     @Transactional
     public void work1() {
 
-        Comment c1 = commentService.findById(1L).get();
+        // 샘플 데이터 3개 생성.
+        // 데이터 3개가 이미 있으면 패스
+        if (postService.count()  > 0) {
+            return ;
+        }
 
-        Post post = c1.getPost();
+        Post p1 = postService.write("title1", "body1");
 
-        System.out.println(post.getId());
-        System.out.println(post.getTitle());
+        Comment c1 = Comment.builder()
+                .post(p1)
+                .body("comment1")
+                .build();
+
+        p1.getComments().add(c1); // 관계의 주인이 DB 반영을 함
+        commentService.write(p1, "comment1");
     }
 }
