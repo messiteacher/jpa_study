@@ -13,6 +13,8 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.core.annotation.Order;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Configuration
 @RequiredArgsConstructor
 public class BaseInitData {
@@ -50,8 +52,6 @@ public class BaseInitData {
                 .body("comment1")
                 .build();
 
-        commentService.save(c1); // 바로 insert 실행
-
         p1.addComment(c1);
 
         Comment c2 = Comment.builder()
@@ -72,11 +72,15 @@ public class BaseInitData {
     public void work2() {
 
         Post post = postService.findById(1L).get();
-//        Comment comment = commentService.findById(1L).get();
+        System.out.println("1번 포스트 가져옴");
 
-        int count = post.getComments().size(); //3개
+        List<Comment> comments = post.getComments();
+        System.out.println("1번 포스트의 댓글 가져옴");
 
-        System.out.println(count);
-        post.removeComment(1L);
+        String body = comments.get(0).getBody();
+        System.out.println("첫번째 댓글 내용 가져옴");
+
+        comments.get(1); // 2번째 댓글 가져오기
+//        System.out.println(body);
     }
 }
