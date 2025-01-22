@@ -69,12 +69,5 @@ public class BaseInitData {
     @Transactional
     public void work2() {
 
-        Post post = postService.findById(1L).get();
-
-        for (Comment comment : post.getComments()) {
-            commentService.delete(comment);
-        }
-
-        postService.delete(post);
     }
 }
