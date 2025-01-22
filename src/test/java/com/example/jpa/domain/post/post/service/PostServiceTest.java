@@ -121,6 +121,7 @@ public class PostServiceTest {
         Pageable pageable = PageRequest.of(pageNumber, itemsPerPage, Sort.by(Sort.Direction.DESC, "id"));
         Page<Post> postPage = postService.findAll(pageable);
         List<Post> posts = postPage.getContent();
+
         assertEquals(1, posts.size()); // 글이 총 3개이고, 현재 페이지는 2이므로 1개만 보여야 함
         Post post = posts.get(0);
         assertEquals(1, post.getId());
@@ -128,6 +129,28 @@ public class PostServiceTest {
         assertEquals(3, postPage.getTotalElements()); // 전체 글 수
         assertEquals(2, postPage.getTotalPages()); // 전체 페이지 수
         assertEquals(1, postPage.getNumberOfElements()); // 현재 페이지에 노출된 글 수
+        assertEquals(pageNumber, postPage.getNumber()); // 현재 페이지 번호
+    }
+
+    @Test
+    @DisplayName("findByTitleLike(Pageable pageable)")
+    void t12() {
+
+        // select * from post where title like 'title%' order by id desc limit 0, 10
+        int itemsPerPage = 10;
+        int pageNumber = 1;
+        pageNumber--;
+        Pageable pageable = PageRequest.of(pageNumber, itemsPerPage, Sort.by(Sort.Direction.DESC, "id"));
+        Page<Post> postPage = postService.findByTitleLike("title%", pageable);
+        List<Post> posts = postPage.getContent();
+
+        assertEquals(3, posts.size());
+        Post post = posts.get(0);
+        assertEquals(3, post.getId());
+        assertEquals("title1", post.getTitle());
+        assertEquals(3, postPage.getTotalElements()); // 전체 글 수
+        assertEquals(1, postPage.getTotalPages()); // 전체 페이지 수
+        assertEquals(3, postPage.getNumberOfElements()); // 현재 페이지에 노출된 글 수
         assertEquals(pageNumber, postPage.getNumber()); // 현재 페이지 번호
     }
 }
