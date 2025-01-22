@@ -45,6 +45,8 @@ public class BaseInitData {
         }
 
         Post p1 = postService.write("title1", "body1");
+        Post p2 = postService.write("title1", "body3");
+        Post p3 = postService.write("title1", "body3");
 
         Comment c1 = Comment.builder()
                 .body("comment1")
