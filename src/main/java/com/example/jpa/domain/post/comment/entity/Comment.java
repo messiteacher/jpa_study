@@ -31,8 +31,8 @@ public class Comment {
     @Setter(AccessLevel.PRIVATE)
     private LocalDateTime modifiedDate;
 
-    @ManyToOne
-    private Member member;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Member author;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post;

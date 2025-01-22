@@ -18,12 +18,12 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    public Post write(Member writer, String title, String body) {
+    public Post write(Member author, String title, String body) {
 
         Post post = Post.builder()
                 .title(title)
                 .body(body)
-                .writer(writer)
+                .author(author)
                 .build();
 
         return postRepository.save(post);
@@ -93,5 +93,9 @@ public class PostService {
 
     public Page<Post> findAll(Pageable pageable) {
         return postRepository.findAll(pageable);
+    }
+
+    public List<Post> findByAuthorUsername(String username) {
+        return postRepository.findByAuthorUsername(username);
     }
 }

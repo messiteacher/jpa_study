@@ -159,4 +159,14 @@ public class PostServiceTest {
         assertEquals(3, postPage.getNumberOfElements()); // 현재 페이지에 노출된 글 수
         assertEquals(pageNumber, postPage.getNumber()); // 현재 페이지 번호
     }
+
+    @Test
+    @DisplayName("회원 정보로 글 조회")
+    void t13() {
+
+//        Member user1 = memberService.findByUsername("user1").get();
+        List<Post> posts = postService.findByAuthorUsername("user1");
+
+        assertThat(posts.size()).isEqualTo(2);
+    }
 }

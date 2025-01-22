@@ -40,7 +40,7 @@ public class Post {
     private String body;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Member writer;
+    private Member author;
 
     @OneToMany(mappedBy = "post", cascade = {CascadeType.ALL, CascadeType.PERSIST}) // mappedBy를 사용하지 않은 쪽이 관계의 주인
     @Builder.Default
