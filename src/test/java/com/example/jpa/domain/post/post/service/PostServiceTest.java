@@ -65,4 +65,45 @@ public class PostServiceTest {
 
         assertThat(posts.size()).isEqualTo(3);
     }
+
+    @Test
+    @DisplayName("제목과 내용으로 검색")
+    @Transactional
+    public void t5() {
+
+        List<Post> posts = postService.findByTitleAndBody("title1", "body1");
+        
+        assertThat(posts.size()).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("제목이 포함된 결과 조회")
+    @Transactional
+    public void t6() {
+
+        List<Post> posts = postService.findByTitleLike("title%");
+
+        assertThat(posts.size()).isEqualTo(3);
+    }
+
+    @Test
+    @DisplayName("아이디 순으로 내림차순 정렬")
+    @Transactional
+    public void t7() {
+
+        List<Post> posts = postService.findByOrderByIdDesc();
+
+        assertThat(posts.size()).isEqualTo(3);
+        assertThat(posts.get(0).getId()).isEqualTo(3);
+    }
+
+    @Test
+    @DisplayName("위에서 2개만 조회")
+    @Transactional
+    public void t8() {
+
+        List<Post> posts = postService.findTop2ByTitleOrderByIdDesc("title1");
+
+        assertThat(posts.size()).isEqualTo(2);
+    }
 }
