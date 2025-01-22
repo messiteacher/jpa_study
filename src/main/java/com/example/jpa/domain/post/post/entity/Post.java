@@ -38,7 +38,7 @@ public class Post {
     @Column(columnDefinition = "TEXT")
     private String body;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true) // mappedBy를 사용하지 않은 쪽이 관계의 주인
+    @OneToMany(mappedBy = "post", cascade = {CascadeType.ALL, CascadeType.PERSIST}) // mappedBy를 사용하지 않은 쪽이 관계의 주인
     @Builder.Default
     private List<Comment> comments = new ArrayList<>();
 
@@ -58,5 +58,14 @@ public class Post {
                 .findFirst();
 
         opComment.ifPresent(comment -> comments.remove(comment));
+    }
+
+    public void removeAllComments() {
+
+        comments.forEach(comment -> {
+                    comment.setPost(null);
+                });
+
+        comments.clear();
     }
 }

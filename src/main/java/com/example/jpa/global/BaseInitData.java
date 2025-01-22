@@ -13,8 +13,6 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.core.annotation.Order;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Configuration
 @RequiredArgsConstructor
 public class BaseInitData {
@@ -72,15 +70,11 @@ public class BaseInitData {
     public void work2() {
 
         Post post = postService.findById(1L).get();
-        System.out.println("1번 포스트 가져옴");
 
-        Comment c4 = Comment.builder()
-                .body("comment4")
-                .build();
+        for (Comment comment : post.getComments()) {
+            commentService.delete(comment);
+        }
 
-        post.addComment(c4);
-
-        List<Comment> comments = post.getComments();
-        System.out.println("1번 포스트의 댓글 가져옴");
+        postService.delete(post);
     }
 }
