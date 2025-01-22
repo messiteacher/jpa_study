@@ -65,7 +65,7 @@ public class BaseInitData {
                 .build();
 
         p1.addComment(c3);
-        p1.removeComment(c1);
+//        p1.removeComment(c1);
     }
 
     @Transactional
@@ -74,13 +74,13 @@ public class BaseInitData {
         Post post = postService.findById(1L).get();
         System.out.println("1번 포스트 가져옴");
 
+        Comment c4 = Comment.builder()
+                .body("comment4")
+                .build();
+
+        post.addComment(c4);
+
         List<Comment> comments = post.getComments();
         System.out.println("1번 포스트의 댓글 가져옴");
-
-        String body = comments.get(0).getBody();
-        System.out.println("첫번째 댓글 내용 가져옴");
-
-        comments.get(1); // 2번째 댓글 가져오기
-//        System.out.println(body);
     }
 }
