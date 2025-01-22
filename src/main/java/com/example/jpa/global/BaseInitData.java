@@ -31,6 +31,7 @@ public class BaseInitData {
 
         return args -> {
             self.work1();
+            self.work2();
         };
     }
 
@@ -39,8 +40,8 @@ public class BaseInitData {
 
         // 샘플 데이터 3개 생성.
         // 데이터 3개가 이미 있으면 패스
-        if (postService.count()  > 0) {
-            return ;
+        if (postService.count() > 0) {
+            return;
         }
 
         Post p1 = postService.write("title1", "body1");
@@ -49,7 +50,8 @@ public class BaseInitData {
                 .body("comment1")
                 .build();
 
-//        c1 = commentService.save(c1);
+        commentService.save(c1); // 바로 insert 실행
+
         p1.addComment(c1);
 
         Comment c2 = Comment.builder()
@@ -63,10 +65,18 @@ public class BaseInitData {
                 .build();
 
         p1.addComment(c3);
-
         p1.removeComment(c1);
+    }
 
-//        p1.getComments().add(c1); // 관계의 주인이 DB 반영을 함
-//        commentService.write(p1, "comment1");
+    @Transactional
+    public void work2() {
+
+        Post post = postService.findById(1L).get();
+//        Comment comment = commentService.findById(1L).get();
+
+        int count = post.getComments().size(); //3개
+
+        System.out.println(count);
+        post.removeComment(1L);
     }
 }
