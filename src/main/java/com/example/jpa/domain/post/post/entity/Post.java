@@ -1,5 +1,6 @@
 package com.example.jpa.domain.post.post.entity;
 
+import com.example.jpa.domain.member.entity.Member;
 import com.example.jpa.domain.post.comment.entity.Comment;
 import jakarta.persistence.*;
 import lombok.*;
@@ -37,6 +38,9 @@ public class Post {
     private String title;
     @Column(columnDefinition = "TEXT")
     private String body;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Member writer;
 
     @OneToMany(mappedBy = "post", cascade = {CascadeType.ALL, CascadeType.PERSIST}) // mappedBy를 사용하지 않은 쪽이 관계의 주인
     @Builder.Default

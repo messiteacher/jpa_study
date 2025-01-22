@@ -1,5 +1,7 @@
 package com.example.jpa.domain.post.post.service;
 
+import com.example.jpa.domain.member.entity.Member;
+import com.example.jpa.domain.member.service.MemberService;
 import com.example.jpa.domain.post.post.entity.Post;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,6 +27,8 @@ public class PostServiceTest {
 
     @Autowired
     private PostService postService;
+    @Autowired
+    private MemberService memberService;
 
     @Test
     @DisplayName("글 2개 작성")
@@ -32,8 +36,10 @@ public class PostServiceTest {
     @Rollback(false)
     public void test() {
 
-        postService.write("title1", "body1");
-        postService.write("title2", "body2");
+        Member user1 = memberService.findByUsername("user1").get();
+
+        postService.write(user1, "title1", "body1");
+        postService.write(user1, "title2", "body2");
     }
 
     @Test
