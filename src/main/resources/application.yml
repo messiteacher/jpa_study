@@ -7,7 +7,7 @@ spring:
       enabled: always
 
   profiles:
-    active: test
+    active: dev
 
   datasource:
     url: jdbc:h2:./db_dev;MODE=MySQL
