@@ -3,7 +3,7 @@ package com.example.jpa.domain.post.post.entity;
 import com.example.jpa.domain.member.entity.Member;
 import com.example.jpa.domain.post.comment.entity.Comment;
 import com.example.jpa.domain.post.tag.entity.Tag;
-import com.example.jpa.global.entity.BaseEntity;
+import com.example.jpa.global.entity.BaseTime;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @EntityListeners(AuditingEntityListener.class)
-public class Post extends BaseEntity {
+public class Post extends BaseTime {
 
     @Column(length = 100)
     private String title;
