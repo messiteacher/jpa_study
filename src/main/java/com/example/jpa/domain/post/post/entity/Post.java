@@ -2,13 +2,11 @@ package com.example.jpa.domain.post.post.entity;
 
 import com.example.jpa.domain.member.entity.Member;
 import com.example.jpa.domain.post.comment.entity.Comment;
+import com.example.jpa.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,19 +18,7 @@ import java.util.Optional;
 @NoArgsConstructor
 @Builder
 @EntityListeners(AuditingEntityListener.class)
-public class Post {
-
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.PRIVATE)
-    private Long id;
-
-    @CreatedDate
-    @Setter(AccessLevel.PRIVATE)
-    private LocalDateTime createdDate;
-
-    @LastModifiedDate
-    @Setter(AccessLevel.PRIVATE)
-    private LocalDateTime modifiedDate;
+public class Post extends BaseEntity {
 
     @Column(length = 100)
     private String title;
