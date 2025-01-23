@@ -3,6 +3,7 @@ package com.example.jpa.domain.post.post.entity;
 import com.example.jpa.domain.member.entity.Member;
 import com.example.jpa.domain.post.comment.entity.Comment;
 import com.example.jpa.domain.post.tag.entity.Tag;
+import com.example.jpa.domain.post.tag.entity.TagId;
 import com.example.jpa.global.entity.BaseTime;
 import jakarta.persistence.*;
 import lombok.*;
@@ -51,7 +52,7 @@ public class Post extends BaseTime {
 //        }
 
         Tag tag = Tag.builder()
-                .name(name)
+                .id(new TagId(this.getId(), name))
                 .post(this)
                 .build();
 
