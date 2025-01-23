@@ -70,6 +70,10 @@ public class BaseInitData {
         Post p2 = postService.write(user2, "title1", "body2");
         Post p3 = postService.write(user3, "title1", "body3");
 
+        p1.addTag("JPA");
+        p1.addTag("SpringBoot");
+        p1.addTag("개발");
+
         Comment c1 = Comment.builder()
                 .author(user1)
                 .body("comment1")
@@ -90,6 +94,5 @@ public class BaseInitData {
                 .build();
 
         p1.addComment(c3);
-//        p1.removeComment(c1);
     }
 }
