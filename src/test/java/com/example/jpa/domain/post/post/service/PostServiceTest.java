@@ -169,4 +169,29 @@ public class PostServiceTest {
 
         assertThat(posts.size()).isEqualTo(2);
     }
+
+    @Test
+    @DisplayName("회원 정보로 글 조회2")
+    @Transactional
+    void t14() {
+
+//        Member user1 = memberService.findByUsername("user1").get();
+        List<Post> posts = postService.findByAuthorUsername("user1");
+        Post post = posts.get(0);
+
+        System.out.println(post.getId() + ", " + post.getTitle());
+        System.out.println(post.getAuthor().getUsername());
+    }
+
+    @Test
+    @DisplayName("글목록에서 회원 정보 가져오기")
+    @Transactional
+    void t15() {
+
+        List<Post> posts = postService.findAll();
+
+        for (Post post : posts) {
+            System.out.println(post.getId() + ", " + post.getTitle() + post.getAuthor().getNickName());
+        }
+    }
 }
